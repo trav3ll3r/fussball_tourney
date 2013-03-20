@@ -20,5 +20,4 @@ class GameForm(wtf.Form):
     playerRedDefId  = wtf.TextField('Red Defender' , validators=[validators.Required()])
 
 class ScoreForm(wtf.Form):
-#    player  = wtf.TextField('Player', validators=[validators.Required()])
-    ownGoal = wtf.TextField('Own Goal?', validators=[validators.Required()])
+    ownGoal = wtf.BooleanField('Own Goal?', validators=[])

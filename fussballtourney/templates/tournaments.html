@@ -3,16 +3,22 @@
 {% block title %}Tournaments{% endblock %}
 
 {% block content %}
-    <div>
-        Add <a href="/tournaments/new">new</a>
-    </div>
+    <h3>List of ongoing tournaments</h3>
     <ul>
         {% for t in tournaments %}
             <li>
-                {#[{{ t.key.id() }}]#}
-                {{ t.label }} (created on {{ t.created }}) <a href="/tournaments/{{ t.key.id() }}">view</a>
-                {#{{ t.dateStart }}#}
+                <a href="/tournaments/{{ t.key.id() }}">
+                    <b>{{ t.label }}</b>
+                </a>
+                {#(created on {{ t.created }})#}
             </li>
         {% endfor %}
     </ul>
+
+    <div>
+        <a href="/tournaments/new">Start new tournament</a>
+    </div>
+
+    <br/>
+    <br/>
 {% endblock %}

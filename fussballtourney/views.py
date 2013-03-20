@@ -94,8 +94,8 @@ def new_game(tournamentId):
         _playerRedAttId  = int(form.playerRedAttId.data)
         _playerRedDefId  = int(form.playerRedDefId.data)
 
-        _teamBlue = getTournamentTeam(_tournament.key, _playerBlueAttId, _playerBlueDefId)
-        _teamRed  = getTournamentTeam(_tournament.key, _playerRedAttId , _playerRedDefId )
+        _teamBlue = getTournamentTeamByPlayers(_tournament.key, _playerBlueAttId, _playerBlueDefId)
+        _teamRed  = getTournamentTeamByPlayers(_tournament.key, _playerRedAttId , _playerRedDefId )
 
         game = Game(
             tournament = _tournament.key,
@@ -117,8 +117,9 @@ def new_game(tournamentId):
 def game(tournamentId, gameId):
     _tournament = Tournament.get_by_id(int(tournamentId))
     _game       = Game.get_by_id(int(gameId))
+    _scores     = getGameScores(_game.key)
 
-    return render_template('game.html', tournament=_tournament, game=_game, scores=[])
+    return render_template('game.html', tournament=_tournament, game=_game, scores=_scores)
 
 @app.route('/tournaments/<tournamentId>/games/<gameId>/scores/new/player/<playerId>', methods = ['GET', 'POST'])
 def new_score(tournamentId, gameId, playerId):
@@ -127,19 +128,34 @@ def new_score(tournamentId, gameId, playerId):
     _player     = Player.get_by_id(int(playerId))
 
     form = ScoreForm()
-
     if form.validate_on_submit():
+        _team = None
 
-        _team       = _game.teamRed #TODO: find correct team
+        isOwnGoal = bool(form.ownGoal.data)
 
-        score = Score(
-            game   = _game,
-            player = _player,
-            team   = _team,
-            ownGoal = form.ownGoal.data
-        )
-        score.put()
-        return redirect('tournaments/' + tournamentId + '/games/' + gameId)
+        # check if player belongs to BLUE team
+        if _player.key == _game.teamBlue.get().playerDef or _player.key == _game.teamBlue.get().playerAtt:
+            if isOwnGoal:
+                _team = _game.teamRed
+            else:
+                _team = _game.teamBlue
+
+        # check if player belongs to RED team
+        if _player.key == _game.teamRed.get().playerDef or _player.key == _game.teamRed.get().playerAtt:
+            if isOwnGoal:
+                _team = _game.teamBlue
+            else:
+                _team = _game.teamRed
+
+        if _team is not None:
+            score = Score(
+                game    = _game.key,
+                player  = _player.key,
+                team    = _team,
+                ownGoal = isOwnGoal
+            )
+            score.put()
+            return redirect('tournaments/' + tournamentId + '/games/' + gameId)
 
     form.tournament   = _tournament
     form.game         = _game
@@ -151,7 +167,7 @@ def getTournamentPlayers(tournamentKey):
     result = Player.gql("WHERE tournament = :pTournament", pTournament=tournamentKey).order(+Player.nickname)
     return result
 
-def getTournamentTeam(tournamentKey, playerAttId, playerDefId):
+def getTournamentTeamByPlayers(tournamentKey, playerAttId, playerDefId):
     _playerAtt = Player.get_by_id(playerAttId)
     _playerDef = Player.get_by_id(playerDefId)
 
@@ -173,4 +189,8 @@ def getTournamentTeam(tournamentKey, playerAttId, playerDefId):
 
         result = team
 
+    return result
+
+def getGameScores(gameKey):
+    result = Score.gql("WHERE game = :pGame", pGame=gameKey).order(+Score.created)
     return result

@@ -5,7 +5,7 @@
 {% block content %}
 
     <div>
-        Players:
+        <h3>Players</h3>
         <ol>
             {% for p in players %}
                 <li>
@@ -19,7 +19,7 @@
     </div>
 
     <div>
-        Games:
+        <h3>Games</h3>
         <ol>
             {% for g in games %}
                 <li>
@@ -41,16 +41,13 @@
     </div>
 
     <div>
-        Teams:
+        <h3>Teams</h3>
         <ol>
             {% for t in teams %}
                 <li>
-                    {{ t.name }} {#({{ t.playerAtt }} / {{ t.playerDef }})#}
+                    {{ t.name }}
                 </li>
             {% endfor %}
-            {#<div>
-                <a href="/tournaments/{{ tournament.key.id() }}/teams/new">add new</a>
-            </div>#}
         </ol>
     </div>
 {% endblock %}

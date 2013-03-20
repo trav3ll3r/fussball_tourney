@@ -20,6 +20,11 @@ indexes:
   - name: tournament
   - name: nickname
 
+- kind: Score
+  properties:
+  - name: game
+  - name: created
+
 - kind: Team
   properties:
   - name: tournament

@@ -4,69 +4,66 @@
 
 {% block content %}
 
+    {% set teamBlue = game.key.get().teamBlue.get() %}
+    {% set teamRed  = game.key.get().teamRed.get() %}
+
     <div>
-        Teams:
+        <h2>Game #{{ game.key.id() }}</h2>
         <div>
-            {{ game.key.get().teamBlue.get().name }}
-        </div>
-        <div>
-            vs
-        </div>
-        <div>
-            {{ game.key.get().teamRed.get().name }}
+            <div class="team blue">
+                <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamBlue.get().playerAtt.id() }}">
+                    <div id="blueAttPlayer" style="color:white;">{{ teamBlue.playerAtt.get().nickname }} (Att)</div>
+                </a>
+            </div>
+            <div class="team blue">
+                <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamBlue.get().playerDef.id() }}">
+                    <div id="blueDefPlayer" style="color:white;">{{ teamBlue.playerDef.get().nickname }} (Def)</div>
+                </a>
+            </div>
+
+            <span>vs</span>
+
+            <div class="team red">
+                <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamRed.get().playerAtt.id() }}">
+                    <div id="redAttPlayer" style="color:white;">{{ teamRed.playerAtt.get().nickname }} (Att)</div>
+                </a>
+            </div>
+            <div class="team red">
+                <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamRed.get().playerDef.id() }}">
+                    <div id="redDefPlayer" style="color:white;">{{ teamRed.playerDef.get().nickname }} (Def)</div>
+                </a>
+            </div>
         </div>
     </div>
 
     <div>
         <br/>
-        <br/>
     </div>
 
     <div>
-        <div class="team blue">
-            <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamBlue.get().playerAtt.id() }}">
-                <div id="blueAttPlayer" style="color:white;">{{ game.key.get().teamBlue.get().playerAtt.get().nickname }} (Att)</div>
-            </a>
-        </div>
-        <div class="team blue">
-            <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamBlue.get().playerDef.id() }}">
-                <div id="blueDefPlayer" style="color:white;">{{ game.key.get().teamBlue.get().playerDef.get().nickname }} (Def)</div>
-            </a>
-        </div>
-    </div>
-    <div>
-        <div class="team red">
-            <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamRed.get().playerAtt.id() }}">
-                <div id="redAttPlayer" style="color:white;">{{ game.key.get().teamRed.get().playerAtt.get().nickname }} (Att)</div>
-            </a>
-        </div>
-        <div class="team red">
-            <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamRed.get().playerDef.id() }}">
-                <div id="redDefPlayer" style="color:white;">{{ game.key.get().teamRed.get().playerDef.get().nickname }} (Def)</div>
-            </a>
-        </div>
-    </div>
-
-    <div>
-        <br/>
-        <br/>
-    </div>
-
-    <div>
-        Result:
+        Goals:
         <ol>
+            {% set scoreBlue = 0 %}
+            {% set scoreRed  = 0 %}
+
             {% for s in scores %}
-                {#<li>
-                    <span class="team blue">
-                        {{ g.teamBlue.get().name }}
-                    </span>
-                    <span class="team red">
-                        {{ g.teamRed.get().name }}
-                    </span>
-                    <span>
-                        <a href="/tournaments/{{ tournament.key.id() }}/games/{{ g.key.id() }}">view progress</a>
-                    </span>
-                </li>#}
+                <li>
+                    {% if s.game.get().teamBlue == s.team %}
+                        {% set teamColour = "blue" %}
+                        {% set scoreBlue = scoreBlue + 1 %}
+                    {% else %}
+                        {% set teamColour = "red" %}
+                        {% set scoreRed = scoreRed + 1 %}
+                    {% endif %}
+
+                    <span class="score {{ teamColour }}">+1</span>
+                    <span class="player">{{ s.player.get().nickname }}</span>
+
+                    <span class="score blue">{{ scoreBlue }}</span>
+                    <span class="">:</span>
+                    <span class="score red">{{ scoreRed }}</span>
+                    {#<span class="player">{{ scoreBlue }} : {{ scoreRed }}</span>#}
+                </li>
             {% endfor %}
             {#<div>
                 <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new">add new</a>

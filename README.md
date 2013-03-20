@@ -1,7 +1,7 @@
 Fussball Tourney
 ================
 
-An application used to set up a fußball tournaments and track their progress.
+An application used to set up fußball tournaments and track their progress.
 
 Technologies
 ============
