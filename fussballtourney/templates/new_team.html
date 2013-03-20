@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}Register new Player{% endblock %}
+
+{% block content %}
+    <h1 id="">Register new Player</h1>
+
+    <form action="/tournaments/{{ form.tournament.key.id() }}/teams/new" method="post" accept-charset="utf-8">
+        {{ form.csrf_token }}
+        <p>
+            <label for="teamName">{{ form.teamName.label }}</label>
+            {{ form.teamName|safe }}
+        </p>
+
+        <p>
+            <label for="playerAttId">{{ form.playerAttId.label }}</label>
+            <select id="playerAttId" name="playerAttId">
+                {% for p in form.players %}
+                    <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
+                {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <label for="playerDefId">{{ form.playerDefId.label }}</label>
+            <select id="playerDefId" name="playerDefId">
+            {% for p in form.players %}
+                <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
+            {% endfor %}
+            </select>
+        </p>
+
+        <p>
+            <input type="submit" value="Add team"/>
+        </p>
+    </form>
+
+{% endblock %}

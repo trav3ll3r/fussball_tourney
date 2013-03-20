@@ -1,0 +1,3 @@
+.team {display:inline-block; border:1px solid gray; padding:2px 4px; min-width:80px; min-height:25px;text-align:center; margin:2px;}
+.team.blue {background-color: blue;}
+.team.red {background-color: red;}

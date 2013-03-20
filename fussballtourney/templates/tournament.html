@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}Tournament{% endblock %}
+
+{% block content %}
+
+    <div>
+        Players:
+        <ol>
+            {% for p in players %}
+                <li>
+                    {{ p.nickname }}
+                </li>
+            {% endfor %}
+            <div>
+                <a href="/tournaments/{{ tournament.key.id() }}/players/new">add new</a>
+            </div>
+        </ol>
+    </div>
+
+    <div>
+        Games:
+        <ol>
+            {% for g in games %}
+                <li>
+                    <span class="team blue">
+                        {{ g.teamBlue.get().name }}
+                    </span>
+                    <span class="team red">
+                        {{ g.teamRed.get().name }}
+                    </span>
+                    <span>
+                        <a href="/tournaments/{{ tournament.key.id() }}/games/{{ g.key.id() }}">view progress</a>
+                    </span>
+                </li>
+            {% endfor %}
+            <div>
+                <a href="/tournaments/{{ tournament.key.id() }}/games/new">add new</a>
+            </div>
+        </ol>
+    </div>
+
+    <div>
+        Teams:
+        <ol>
+            {% for t in teams %}
+                <li>
+                    {{ t.name }} {#({{ t.playerAtt }} / {{ t.playerDef }})#}
+                </li>
+            {% endfor %}
+            {#<div>
+                <a href="/tournaments/{{ tournament.key.id() }}/teams/new">add new</a>
+            </div>#}
+        </ol>
+    </div>
+{% endblock %}
