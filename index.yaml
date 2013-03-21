@@ -25,6 +25,12 @@ indexes:
   - name: game
   - name: created
 
+- kind: Score
+  properties:
+  - name: game
+  - name: created
+    direction: desc
+
 - kind: Team
   properties:
   - name: tournament

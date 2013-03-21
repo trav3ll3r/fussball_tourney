@@ -3,54 +3,58 @@
 {% block title %}Register new Game{% endblock %}
 
 {% block content %}
-    <h1 id="">Register new Game</h1>
+    <h3>Register new Game</h3>
+
 
     <form action="/tournaments/{{ form.tournament.key.id() }}/games/new" method="post" accept-charset="utf-8">
         {{ form.csrf_token }}
 
-        <div>Blue Team:</div>
+        <div class="row">
+            <div class="span6">
+                <h4>Blue Team:</h4>
+                <p>
+                    <label for="playerBlueAttId">{{ form.playerBlueAttId.label }}</label>
+                    <select id="playerBlueAttId" name="playerBlueAttId">
+                        {% for p in form.players %}
+                            <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p>
+                    <label for="playerBlueDefId">{{ form.playerBlueDefId.label }}</label>
+                    <select id="playerBlueDefId" name="playerBlueDefId">
+                    {% for p in form.players %}
+                        <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
+                    {% endfor %}
+                    </select>
+                </p>
+            </div>
 
-        <p>
-            <label for="playerBlueAttId">{{ form.playerBlueAttId.label }}</label>
-            <select id="playerBlueAttId" name="playerBlueAttId">
-                {% for p in form.players %}
-                    <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
-                {% endfor %}
-            </select>
-        </p>
-
-        <p>
-            <label for="playerBlueDefId">{{ form.playerBlueDefId.label }}</label>
-            <select id="playerBlueDefId" name="playerBlueDefId">
-            {% for p in form.players %}
-                <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
-            {% endfor %}
-            </select>
-        </p>
-
-        <div>Red Team:</div>
-
-        <p>
-            <label for="playerRedAttId">{{ form.playerRedAttId.label }}</label>
-            <select id="playerRedAttId" name="playerRedAttId">
-                {% for p in form.players %}
-                    <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
-                {% endfor %}
-            </select>
-        </p>
-
-        <p>
-            <label for="playerRedDefId">{{ form.playerRedDefId.label }}</label>
-            <select id="playerRedDefId" name="playerRedDefId">
-                {% for p in form.players %}
-                    <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
-                {% endfor %}
-            </select>
-        </p>
+            <div class="span6">
+                <h4>Red Team:</h4>
+                <p>
+                    <label for="playerRedAttId">{{ form.playerRedAttId.label }}</label>
+                    <select id="playerRedAttId" name="playerRedAttId">
+                        {% for p in form.players %}
+                            <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p>
+                    <label for="playerRedDefId">{{ form.playerRedDefId.label }}</label>
+                    <select id="playerRedDefId" name="playerRedDefId">
+                        {% for p in form.players %}
+                            <option value="{{ p.key.id()|safe }}">{{ p.nickname|safe }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+            </div>
+        </div>
 
         <p>
             <input type="submit" value="Add game"/>
         </p>
+
     </form>
 
 {% endblock %}

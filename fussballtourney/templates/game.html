@@ -10,28 +10,38 @@
     <div>
         <h2>Game #{{ game.key.id() }}</h2>
         <div>
-            <div class="team blue">
-                <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamBlue.get().playerAtt.id() }}">
-                    <div id="blueAttPlayer" style="color:white;">{{ teamBlue.playerAtt.get().nickname }} (Att)</div>
-                </a>
+            <div style="float:left; width:250px;">
+                <div style="float:left; margin:10px;">
+                    <a class="btn " href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamBlue.get().playerAtt.id() }}">
+                        <div id="blueAttPlayer">{{ teamBlue.playerAtt.get().nickname }} (Att)</div>
+                    </a>
+                </div>
+                <div style="float:left; margin:10px;">
+                    <a class="btn" href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamBlue.get().playerDef.id() }}">
+                        <div id="blueDefPlayer">{{ teamBlue.playerDef.get().nickname }} (Def)</div>
+                    </a>
+                </div>
             </div>
-            <div class="team blue">
-                <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamBlue.get().playerDef.id() }}">
-                    <div id="blueDefPlayer" style="color:white;">{{ teamBlue.playerDef.get().nickname }} (Def)</div>
-                </a>
+            <div class="team blue" style="margin:10px;">
+                {{ totalScoreBlue }}
             </div>
 
-            <span>vs</span>
+            <div style="clear:both;"></div>
 
-            <div class="team red">
-                <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamRed.get().playerAtt.id() }}">
-                    <div id="redAttPlayer" style="color:white;">{{ teamRed.playerAtt.get().nickname }} (Att)</div>
-                </a>
+            <div style="float:left; width:250px;">
+                <div style="float:left; margin:10px;">
+                    <a class="btn" href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamRed.get().playerAtt.id() }}">
+                        <div id="redAttPlayer">{{ teamRed.playerAtt.get().nickname }} (Att)</div>
+                    </a>
+                </div>
+                <div style="float:left; margin:10px;">
+                    <a class="btn" href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamRed.get().playerDef.id() }}">
+                        <div id="redDefPlayer">{{ teamRed.playerDef.get().nickname }} (Def)</div>
+                    </a>
+                </div>
             </div>
-            <div class="team red">
-                <a href="/tournaments/{{ tournament.key.id() }}/games/{{ game.key.id() }}/scores/new/player/{{ game.key.get().teamRed.get().playerDef.id() }}">
-                    <div id="redDefPlayer" style="color:white;">{{ teamRed.playerDef.get().nickname }} (Def)</div>
-                </a>
+            <div class="team red" style="margin:10px;">
+                {{ totalScoreRed }}
             </div>
         </div>
     </div>

@@ -4,50 +4,64 @@
 
 {% block content %}
 
-    <div>
-        <h3>Players</h3>
-        <ol>
-            {% for p in players %}
-                <li>
-                    {{ p.nickname }}
-                </li>
-            {% endfor %}
-            <div>
-                <a href="/tournaments/{{ tournament.key.id() }}/players/new">add new</a>
-            </div>
-        </ol>
+    <div class="row">
+        <div class="span6">
+            <h3>
+                Players
+                <a class="btn alignButtonTop" href="/tournaments/{{ tournament.key.id() }}/players/new">
+                    <i class="icon-plus"></i>
+                    New Player
+                </a>
+            </h3>
+            <ol>
+                {% for p in players %}
+                    <li>
+                        {{ p.nickname }}
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <div class="span6">
+            <h3>
+                Teams
+            </h3>
+            <ol>
+                {% for t in teams %}
+                    <li>
+                        {{ t.name }}
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
     </div>
 
-    <div>
-        <h3>Games</h3>
-        <ol>
-            {% for g in games %}
-                <li>
-                    <span class="team blue">
-                        {{ g.teamBlue.get().name }}
-                    </span>
-                    <span class="team red">
-                        {{ g.teamRed.get().name }}
-                    </span>
-                    <span>
-                        <a href="/tournaments/{{ tournament.key.id() }}/games/{{ g.key.id() }}">view progress</a>
-                    </span>
-                </li>
-            {% endfor %}
-            <div>
-                <a href="/tournaments/{{ tournament.key.id() }}/games/new">add new</a>
-            </div>
-        </ol>
+    <div class="row">
+        <div class="span12">
+            <h3>
+                Games
+                <button class="btn alignButtonTop" onclick="location='/tournaments/{{ tournament.key.id() }}/games/new'">
+                    <i class="icon-plus"></i>
+                    New Game
+                </button>
+            </h3>
+            <ol>
+                {% for g in games %}
+                    <li>
+                        <span class="team blue">
+                            {{ g.teamBlue.get().name }}
+                        </span>
+                        <span class="team red">
+                            {{ g.teamRed.get().name }}
+                        </span>
+                        <span>
+                            <a href="/tournaments/{{ tournament.key.id() }}/games/{{ g.key.id() }}">view progress</a>
+                        </span>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
     </div>
 
-    <div>
-        <h3>Teams</h3>
-        <ol>
-            {% for t in teams %}
-                <li>
-                    {{ t.name }}
-                </li>
-            {% endfor %}
-        </ol>
-    </div>
+
 {% endblock %}

@@ -119,7 +119,15 @@ def game(tournamentId, gameId):
     _game       = Game.get_by_id(int(gameId))
     _scores     = getGameScores(_game.key)
 
-    return render_template('game.html', tournament=_tournament, game=_game, scores=_scores)
+    totalScoreBlue = 0
+    totalScoreRed  = 0
+    for s in _scores:
+        if s.game.get().teamBlue == s.team:
+            totalScoreBlue += 1
+        else:
+            totalScoreRed += 1
+
+    return render_template('game.html', tournament=_tournament, game=_game, scores=_scores, totalScoreBlue=totalScoreBlue, totalScoreRed=totalScoreRed)
 
 @app.route('/tournaments/<tournamentId>/games/<gameId>/scores/new/player/<playerId>', methods = ['GET', 'POST'])
 def new_score(tournamentId, gameId, playerId):

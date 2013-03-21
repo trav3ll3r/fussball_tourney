@@ -1,16 +1,36 @@
 <!doctype html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+
+
     {% block head %}
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <title>{% block title %}{% endblock %} - My Webpage</title>
+        <title>{% block title %}{% endblock %} - Fussball Tournament Manager</title>
     {% endblock %}
+
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 </head>
 <body>
-<div id="content">{% block content %}{% endblock %}</div>
-<div id="footer">
-    {% block footer %}
-        Developed by <a href="http://au.linkedin.com/in/sinisapoznic">trav3ll3r</a>
-    {% endblock %}
-</div>
+
+    <div class="container">
+        <div id="content" class="container">
+            {% block content %}{% endblock %}
+        </div>
+
+        <div id="footer">
+            {% block footer %}
+                <div class="row" style="border-top:1px #708090 solid; padding-top:10px;">
+                    <div class="span8">
+                        Developed by <a href="http://au.linkedin.com/in/sinisapoznic">trav3ll3r</a>
+                    </div>
+                    <div class="span4">
+                        Powered By: GAE with Python
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+
 </body>

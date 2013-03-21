@@ -3,28 +3,33 @@
 {% block title %}Register new Player{% endblock %}
 
 {% block content %}
-    <h1 id="">Register new Player</h1>
 
-    <form action="/tournaments/{{ form.tournament.key.id() }}/players/new" method="post" accept-charset="utf-8">
-        {{ form.csrf_token }}
-        <p>
-            <label for="nickname">{{ form.nickname.label }}</label>
+    <div class="row">
+        <div class="span6">
+            <h2 id="">Register new Player</h2>
 
-            {{ form.nickname|safe }}
+            <form action="/tournaments/{{ form.tournament.key.id() }}/players/new" method="post" accept-charset="utf-8">
+                {{ form.csrf_token }}
+                <p>
+                    <label for="nickname">{{ form.nickname.label }}</label>
 
-            {% if form.nickname.errors %}
-                <ul class="errors">
-                    {% for error in form.nickname.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        </p>
+                    {{ form.nickname|safe }}
 
-        <p>
-            <input type="submit" value="Add player"/>
-        </p>
-    </form>
+                    {% if form.nickname.errors %}
+                        <ul class="errors">
+                            {% for error in form.nickname.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </p>
+
+                <p>
+                    <input type="submit" value="Add player"/>
+                </p>
+            </form>
+        </div>
+    </div>
 
 
 
